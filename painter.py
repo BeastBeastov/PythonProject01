@@ -12,8 +12,8 @@ from random import randint
 from kivy.core.window import Window
 from kivy.config import Config
 
-Config.set('graphics', 'resizable', True)
-Config.set('graphics', 'width', '400')
+Config.set('graphics', 'resizable', False)
+Config.set('graphics', 'width', '300')
 Config.set('graphics', 'height', '600')
 
 
