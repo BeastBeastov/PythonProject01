@@ -64,56 +64,56 @@ class Container(ScreenManager):
         self.current = 'login'
         self.transition.direction = 'right'
         # self.switch_to('manu', direction='left')
-        print('Начало')
+        # print('Начало')
     def startlogin(self):
         if self.login.text == 'admin' and self.pwd.text == 'admin':
             self.current = 'menu'
             self.transition.direction = 'left'
-            print('Выполняется вход : ' + self.login.text)
+            # print('Выполняется вход : ' + self.login.text)
         elif self.login.text == '' and self.pwd.text == '':
             self.current = 'menu'
             self.transition.direction = 'left'
-            print('Выполняется вход без пароля!')
+            # print('Выполняется вход без пароля!')
         else:
             pass
     def settings(self):
         self.current = 'settings'
         self.transition.direction = 'left'
-        print('Настройки')
+        # print('Настройки')
     def menu(self):
         self.current = 'menu'
         self.transition.direction = 'right'
-        print('Меню')
+        # print('Меню')
     def profile(self):
         self.current = 'profile'
         self.transition.direction = 'right'
-        print('Профиль')
+        # print('Профиль')
     def calcs(self):
         self.current = 'calcs'
         self.transition.direction = 'left'
-        print('Рассчеты')
+        # print('Рассчеты')
     def back_to_calcs(self):
         self.current = 'calcs'
         self.transition.direction = 'right'
-        print('Рассчеты')
+        # print('Рассчеты')
     def on_login(self, instance, *args):
         self.login.text = ''
     def on_pwd(self, instance, *args):
         self.pwd.text = ''
     def projects(self):
-        print('Проекты')
+        # print('Проекты')
     def form_mc(self):
         self.current = 'form_mc'
         self.transition.direction = 'left'
-        print('Расчет материалов опалубки')
+        # print('Расчет материалов опалубки')
     def local_mc(self):
         self.current = 'local_mc'
         self.transition.direction = 'left'
-        print('Расчет местных стройматериалов')
+        # print('Расчет местных стройматериалов')
     def face_mc(self):
-        print('Расчет облицовочных материалов')
+        # print('Расчет облицовочных материалов')
     def wsc(self):
-        print('Расчет работ и услуг')
+        # print('Расчет работ и услуг')
 
 class PoolToolApp(App):
     #theme_cls = ThemeManager()
