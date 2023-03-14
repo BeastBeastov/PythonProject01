@@ -1,0 +1,99 @@
+<Container>
+    login: login
+    pwd: pwd
+
+    Screen:
+        name: 'login'
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 10
+            spacing: 5
+            size_hint: [1, 0.3]
+            TextInput:
+                id: login
+                hint_text: 'логин'
+            TextInput:
+                id: pwd
+                password: True
+                password_mask: '*'
+                hint_text: 'пароль'
+            Button:
+                text: 'Войти'
+                on_press:
+                    root.startlogin()
+
+    Screen:
+        name: 'menu'
+        GridLayout:
+            rows: 7
+            spacing: 5
+            padding: 10
+            Label:
+                text: 'Меню'
+                font_size: 30
+                color: [1, 1, 0, 1]
+                bold: True
+            Button:
+                text: 'Настройки'
+                on_press:
+                    root.settings()
+            Button:
+                text: 'Рассчеты'
+                on_press:
+                    root.calcs()
+            Button:
+                text: 'Проекты'
+                on_press:
+                    root.projects()
+            Button:
+                text: 'Выход'
+                on_press:
+                    root.start()
+
+    Screen:
+        name: 'settings'
+        GridLayout:
+            rows: 7
+            spacing: 5
+            padding: 10
+            Label:
+                text: 'Настройки'
+                font_size: 30
+                color: [1, 1, 0, 1]
+                bold: True
+            Button:
+                text: 'Меню'
+                on_press:
+                    root.menu()
+            Button:
+                text: 'Профиль'
+                on_press:
+                    root.profile()
+            Button:
+                text: 'Выход'
+                on_press:
+                    root.start()
+    Screen:
+        name: 'profile'
+        GridLayout:
+            rows: 7
+            spacing: 5
+            padding: 10
+            Label:
+                text: 'Профиль'
+                font_size: 30
+                color: [1, 1, 0, 1]
+                bold: True
+            Button:
+                text: 'Меню'
+                on_press:
+                    root.menu()
+            Button:
+                text: 'Настройки'
+                on_press:
+                    root.settings()
+            Button:
+                text: 'Выход'
+                on_press:
+                    root.start()
