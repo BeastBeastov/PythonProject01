@@ -19,7 +19,7 @@ from kivy.properties import ObjectProperty
 
 
 # Разрешение экрана телефона 1440х3200
-Window.size = (288, 540)
+# Window.size = (288, 540)
 
 from kivy.config import Config
 Config.set('kivy', 'keyboard_mode', 'systemanddock')
