@@ -1,99 +1,326 @@
+
+
+<MyGrid@GridLayout>
+    rows: 7
+    spacing: 5
+    padding: 10
+<HeadLabel@Label>
+    font_size: '35sp'
+    color: [ 1, .3, 0, 1 ]
+    bold: True
+    italic: True
+<H1Label@Label>
+    size_hint: [1, 0.1]
+    color: [ 0.1, 0, 1, 1 ]
+    italic: True
+<ItemLabel@Label>
+    halign: 'left'
+    font_size: '15sp'
+    valign: 'center'
+    text_size: self.size
+<MDLabel@Label>
+<MDRaisedButton@Button>
+<MDTextField@TextInput>
+
+
 <Container>
     login: login
     pwd: pwd
+    length1: length1
+    width1: width1
+    length2: length2
+    width2: width2
+    perimeter: perimeter
+    metal_profile: metal_profile
+    buttress: buttress
+    bolts: bolts
+    nuts: nuts
+    washers: washers
+    screws: screws
+    concrete: concrete
+    steel: steel
+    stone: stone
+    sand: sand
+    block: block
+    plaster: plaster
+    putty: putty
+    glue: glue
+
 
     Screen:
         name: 'login'
-
         BoxLayout:
             orientation: 'vertical'
             padding: 10
             spacing: 5
             size_hint: [1, 0.3]
-            TextInput:
+            MDTextField:
                 id: login
+                multiline: False
                 hint_text: 'логин'
-            TextInput:
+            MDTextField:
                 id: pwd
+                multiline: False
                 password: True
                 password_mask: '*'
                 hint_text: 'пароль'
-            Button:
+            MDRaisedButton:
                 text: 'Войти'
                 on_press:
                     root.startlogin()
-
     Screen:
         name: 'menu'
-        GridLayout:
-            rows: 7
-            spacing: 5
-            padding: 10
-            Label:
+        MyGrid:
+            HeadLabel:
                 text: 'Меню'
-                font_size: 30
-                color: [1, 1, 0, 1]
-                bold: True
-            Button:
+            MDRaisedButton:
                 text: 'Настройки'
                 on_press:
                     root.settings()
-            Button:
-                text: 'Рассчеты'
+            MDRaisedButton:
+                text: 'Расчеты'
                 on_press:
                     root.calcs()
-            Button:
+            MDRaisedButton:
                 text: 'Проекты'
                 on_press:
                     root.projects()
-            Button:
+            MDRaisedButton:
                 text: 'Выход'
                 on_press:
                     root.start()
-
     Screen:
         name: 'settings'
-        GridLayout:
-            rows: 7
-            spacing: 5
-            padding: 10
-            Label:
+        MyGrid:
+            HeadLabel:
                 text: 'Настройки'
-                font_size: 30
-                color: [1, 1, 0, 1]
-                bold: True
-            Button:
+            MDRaisedButton:
                 text: 'Меню'
                 on_press:
                     root.menu()
-            Button:
+            MDRaisedButton:
                 text: 'Профиль'
                 on_press:
                     root.profile()
-            Button:
+            MDRaisedButton:
                 text: 'Выход'
                 on_press:
                     root.start()
     Screen:
         name: 'profile'
-        GridLayout:
-            rows: 7
-            spacing: 5
-            padding: 10
-            Label:
+        MyGrid:
+            HeadLabel:
                 text: 'Профиль'
-                font_size: 30
-                color: [1, 1, 0, 1]
-                bold: True
-            Button:
+            MDRaisedButton:
                 text: 'Меню'
                 on_press:
                     root.menu()
-            Button:
+            MDRaisedButton:
                 text: 'Настройки'
                 on_press:
                     root.settings()
-            Button:
+            MDRaisedButton:
                 text: 'Выход'
                 on_press:
                     root.start()
+    Screen:
+        name: 'calcs'
+        MyGrid:
+            HeadLabel:
+                text: 'Расчеты'
+            MDRaisedButton:
+                text: 'Меню'
+                on_press:
+                    root.menu()
+            MDRaisedButton:
+                text: 'Расчет материалов опалубки'
+                on_press:
+                    root.form_mc()
+            MDRaisedButton:
+                text: 'Расчет местных стройматериалов'
+                on_press:
+                    root.local_mc()
+            MDRaisedButton:
+                text: 'Расчет облицовочных материалов'
+                on_press:
+                    root.face_mc()
+            MDRaisedButton:
+                text: 'Расчет работ и услуг'
+                on_press:
+                    root.wsc()
+            MDRaisedButton:
+                text: 'Выход'
+                on_press:
+                    root.start()
+
+    Screen:
+        name: 'form_mc'
+        MyGrid:
+            H1Label:
+                text: 'Расчет материалов опалубки'
+            BoxLayout:
+                size_hint: [1, 0.1]
+                spacing: 10
+                MDLabel:
+                    text: 'Длина(м)'
+                MDTextField:
+                    id: length1
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [0.7, 0.8]
+                    multiline: False
+                    hint_text: '8.5'
+                MDLabel:
+                    text: 'Ширина(м)'
+                MDTextField:
+                    id: width1
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [0.7, 0.8]
+                    multiline: False
+                    hint_text: '3'
+            GridLayout:
+                cols: 2
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [0.7, 1]
+                    ItemLabel:
+                        text: 'Периметр'
+                    ItemLabel:
+                        text: 'Профиль 40х20х1.5мм'
+                    ItemLabel:
+                        text: 'Контрфорсы'
+                    ItemLabel:
+                        text: 'Болты М8х35'
+                    ItemLabel:
+                        text: 'Гайки М10'
+                    ItemLabel:
+                        text: 'Шайбы М8'
+                    ItemLabel:
+                        text: 'Кровельные саморезы М6х16'
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [ 0.3, 1 ]
+                    ItemLabel:
+                        id: perimeter
+                        text: '0 м'
+                    ItemLabel:
+                        id: metal_profile
+                        text: '0 м'
+                    ItemLabel:
+                        id: buttress
+                        text: '0 шт'
+                    ItemLabel:
+                        id: bolts
+                        text: '0 шт'
+                    ItemLabel:
+                        id: nuts
+                        text: '0 шт'
+                    ItemLabel:
+                        id: washers
+                        text: '0 шт'
+                    ItemLabel:
+                        id: screws
+                        text: '0 шт'
+            BoxLayout:
+                size_hint: [1, 0.1]
+                spacing: 5
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Рассчитать'
+                    on_press:
+                        root.calc_formwork_materials()
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Назад'
+                    on_press:
+                        root.back_to_calcs()
+
+    Screen:
+        name: 'local_mc'
+        MyGrid:
+            H1Label:
+                text: 'Расчет местных стройматериалов'
+            BoxLayout:
+                size_hint: [1, 0.1]
+                spacing: 10
+                MDLabel:
+                    text: 'Длина(м)'
+                MDTextField:
+                    id: length2
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [0.7, 0.8]
+                    multiline: False
+                    hint_text: '8.5'
+                MDLabel:
+                    text: 'Ширина(м)'
+                MDTextField:
+                    id: width2
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [0.7, 0.8]
+                    multiline: False
+                    hint_text: '3'
+            GridLayout:
+                cols: 2
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [0.7, 1]
+                    ItemLabel:
+                        text: 'Бетон М350'
+                    ItemLabel:
+                        text: 'Арматура 8мм и 10мм'
+                    ItemLabel:
+                        text: 'Щебень для подсыпки фр.5-20'
+                    ItemLabel:
+                        text: 'Песок для обратной засыпки'
+                    ItemLabel:
+                        text: 'Блоки 400х200х200мм'
+                    ItemLabel:
+                        text: 'Штукатурная смесь по 25кг'
+                    ItemLabel:
+                        text: 'Шпатлевка по 20 кг'
+                    ItemLabel:
+                        text: 'Клей плиточный по 25кг'
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [ 0.3, 1 ]
+                    ItemLabel:
+                        id: concrete
+                        text: '0 м'
+                    ItemLabel:
+                        id: steel
+                        text: '0 м'
+                    ItemLabel:
+                        id: stone
+                        text: '0 шт'
+                    ItemLabel:
+                        id: sand
+                        text: '0 шт'
+                    ItemLabel:
+                        id: block
+                        text: '0 шт'
+                    ItemLabel:
+                        id: plaster
+                        text: '0 шт'
+                    ItemLabel:
+                        id: putty
+                        text: '0 шт'
+                    ItemLabel:
+                        id: glue
+                        text: '0 шт'
+            BoxLayout:
+                size_hint: [1, 0.1]
+                spacing: 5
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Рассчитать'
+                    on_press:
+                        root.calc_local_materials()
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Назад'
+                    on_press:
+                        root.back_to_calcs()
+
