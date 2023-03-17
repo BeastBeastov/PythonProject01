@@ -37,6 +37,8 @@
     width1: width1
     length2: length2
     width2: width2
+    length3: length3
+    width3: width3
     perimeter: perimeter
     metal_profile: metal_profile
     buttress: buttress
@@ -53,6 +55,17 @@
     putty: putty
     glue: glue
     pw: pw
+    liner: liner
+    corner: corner
+    liquid: liquid
+    dowel: dowel
+    side_stone: side_stone
+    grout: grout
+    silicone: silicone
+    diametr1: diametr1
+    diametr: diametr
+    thickness: thickness
+    lenroll: lenroll
 
     Screen:
         name: 'login'
@@ -139,6 +152,7 @@
     Screen:
         name: 'calcs'
         MyGrid:
+            rows: 8
             HeadLabel:
                 text: 'Расчеты'
             MDRaisedButton:
@@ -157,6 +171,10 @@
                 text: 'Расчет облицовочных материалов'
                 on_press:
                     root.face_mc()
+            MDRaisedButton:
+                text: 'Расчет длины материала в рулоне'
+                on_press:
+                    root.len_mc()
             MDRaisedButton:
                 text: 'Расчет работ и услуг'
                 on_press:
@@ -342,6 +360,149 @@
                     text: 'Рассчитать'
                     on_press:
                         root.calc_local_materials()
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Назад'
+                    on_press:
+                        root.back_to_calcs()
+    Screen:
+        name: 'face_mc'
+        MyGrid:
+            H1Label:
+                text: 'Расчет облицовочных материалов'
+            GridLayout:
+                cols: 2
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 25
+                    size_hint: [ 0.7, 0.2 ]
+                    MDLabel:
+                        text: 'Длина(м)'
+                    MDLabel:
+                        text: 'Ширина(м)'
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 35
+                    size_hint: [ 0.3, 0.2 ]
+                    MDTextField:
+                        id: length3
+                        input_type: 'number'
+                        input_filter: 'float'
+                        size_hint: [ 0.7, 0.8 ]
+                        multiline: False
+                        hint_text: '8.5'
+                    MDTextField:
+                        id: width3
+                        input_type: 'number'
+                        input_filter: 'float'
+                        size_hint: [ 0.7, 0.8 ]
+                        multiline: False
+                        hint_text: '3'
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [0.7, 1]
+                    ItemLabel:
+                        text: 'ПВХ Лайнер 1,5мм'
+                    ItemLabel:
+                        text: 'Уголок с напылением ПВХ 50х30мм'
+                    ItemLabel:
+                        text: 'Уплотнитель ПВХ 1л'
+                    ItemLabel:
+                        text: 'Дюбель 6х60мм'
+                    ItemLabel:
+                        text: 'Бортовой камень 600х300мм'
+                    ItemLabel:
+                        text: 'Декоративный цемент по 2кг'
+                    ItemLabel:
+                        text: 'Силиконовый герметик'
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: [ 0.2, 1 ]
+                    ItemLabel:
+                        id: liner
+                        text: '0 м'
+                    ItemLabel:
+                        id: corner
+                        text: '0 м'
+                    ItemLabel:
+                        id: liquid
+                        text: '0 шт'
+                    ItemLabel:
+                        id: dowel
+                        text: '0 шт'
+                    ItemLabel:
+                        id: side_stone
+                        text: '0 шт'
+                    ItemLabel:
+                        id: grout
+                        text: '0 шт'
+                    ItemLabel:
+                        id: silicone
+                        text: '0 шт'
+            BoxLayout:
+                size_hint: [1, 0.1]
+                spacing: 5
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Рассчитать'
+                    on_press:
+                        root.calc_face_materials()
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Назад'
+                    on_press:
+                        root.back_to_calcs()
+    Screen:
+        name: 'liner'
+        MyGrid:
+            H1Label:
+                text: 'Расчет длины материала в рулоне'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 25
+                size_hint: [ 0.7, 0.8 ]
+                MDLabel:
+                    text: 'Внешний диаметр рулона (мм)'
+                MDTextField:
+                    id: diametr1
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [ 0.7, 0.8 ]
+                    multiline: False
+                    hint_text: '250'
+                MDLabel:
+                    text: 'Внутренний диаметр рулона (мм)'
+                MDTextField:
+                    id: diametr
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [ 0.7, 0.8 ]
+                    multiline: False
+                    hint_text: '120'
+                MDLabel:
+                    text: 'Толщина материала в рулоне (мм)'
+                MDTextField:
+                    id: thickness
+                    input_type: 'number'
+                    input_filter: 'float'
+                    size_hint: [ 0.7, 0.8 ]
+                    multiline: False
+                    hint_text: '1.5'
+                ItemLabel:
+                    text: 'Результат :'
+                ItemLabel:
+                    id: lenroll
+                    text : '0 м'
+
+            BoxLayout:
+                size_hint: [1, 0.1]
+                spacing: 5
+                MDRaisedButton:
+                    size_hint: [0.4, 0.8]
+                    text: 'Рассчитать'
+                    on_press:
+                        root.calc_length_per_roll()
                 MDRaisedButton:
                     size_hint: [0.4, 0.8]
                     text: 'Назад'

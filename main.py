@@ -22,7 +22,9 @@ from kivy.config import Config
 Config.set('kivy', 'keyboard_mode', 'systemanddock')
 
 # Разрешение экрана телефона 1440х3200
-# Window.size = (360, 700)
+Window.size = (480, 950)
+Window.top = 50
+Window.left = 1000
 
 class PainterWidget(Widget):
     def on_touch_down(self, touch):
@@ -45,7 +47,6 @@ class PainterWidget(Widget):
 
 class Container(ScreenManager):
 
-
     def calc_formwork_materials(self):
         l = float(self.length1.text) if self.length1.text else 0
         w = float(self.width1.text) if self.width1.text else 0
@@ -58,7 +59,6 @@ class Container(ScreenManager):
         self.nuts.text = str(M[3][0])+' шт.\n'+str(M[3][1])+' кг.'
         self.washers.text = str(M[4][0])+' шт.\n'+str(M[4][1])+' кг.'
         self.screws.text = str(M[5])+' шт.'
-
     def calc_local_materials(self):
         l = float(self.length2.text) if self.length2.text else 0
         w = float(self.width2.text) if self.width2.text else 0
@@ -71,18 +71,34 @@ class Container(ScreenManager):
         self.plaster.text = str(M[6])+' меш.'
         self.putty.text = str(M[7])+' меш.'
         self.glue.text = str(M[8])+' меш.'
+    def calc_face_materials(self):
+        l = float(self.length3.text) if self.length2.text else 0
+        w = float(self.width3.text) if self.width2.text else 0
+        M = face_materials(l, w)
+        self.liner.text = str(M[0])+' кв.м.'
+        self.corner.text = str(M[1])+' п.м.'
+        self.liquid.text = str(M[2])+' шт.'
+        self.dowel.text = str(M[3])+' шт.'
+        self.side_stone.text = str(M[4])+' шт.'
+        self.grout.text = str(M[5])+' меш.'
+        self.silicone.text = str(M[6]) + ' шт.'
+
+    def calc_length_per_roll(self):
+        D = float(self.diametr1.text) if self.diametr1.text else 0
+        d = float(self.diametr.text) if self.diametr.text else 0
+        thickness = float(self.thickness.text) if self.thickness.text else 1.5
+        L = linerlen(D, d, thickness)
+        self.lenroll.text = 'В этом рулоне ' + str(L) + ' п.м.'
 
     def start(self):
-        self.length1.text = ''
-        self.width1.text = ''
+        self.length1.text = self.width1.text =''
         self.length2.text = self.width2.text = ''
-        self.login.text = ''
+        self.length3.text = self.width3.text = ''
+        self.login.text = self.pwd.text = ''
         self.login.hint_text = 'логин'
-        self.pwd.text = ''
         self.pwd.hint_text = 'пароль'
         self.current = 'login'
         self.transition.direction = 'right'
-
     def startlogin(self):
         if self.login.text == '' and self.pwd.text == '':
             self.current = 'menu'
@@ -120,10 +136,13 @@ class Container(ScreenManager):
         self.current = 'local_mc'
         self.transition.direction = 'left'
     def face_mc(self):
-        pass
+        self.current = 'face_mc'
+        self.transition.direction = 'left'
+    def len_mc(self):
+        self.current = 'liner'
+        self.transition.direction = 'left'
     def wsc(self):
         pass
-
 
 class PoolToolApp(App):
     def build(self):

@@ -4,13 +4,13 @@ Created on Mon Feb 13 00:29:56 2023
 
 @author: Alexey Ovsyannikov
 
-Модуль включающий в себя функции для использования в основном WorkApp
+Модуль включающий в себя функции для использования в основном приложении
 
 """
 
 # Функция расчета длинны материала в рулоне
 # Исходная формула L=pi(D^2-d^2)/4t 
-def linerlen(D:float, d:float, t:float=1.5):
+def linerlen(D:float, d:float, t:float=1.5) -> float:
     """Функция возвращает длину материала в рулоне по формуле
         L=pi(D^2-d^2)/4t где
         D - внешний диаметр рулона в мм
@@ -36,7 +36,7 @@ def formwork_materials(P):
         комплекта опалубочных конструкций. Расчет только от периметра.
         На выходе массив данных result = [
             0 - профильная труба 40х20мм п.м.,
-            buildozer.spec - контрфорсы(подпорки) компл.,
+            1 - контрфорсы(подпорки) компл.,
             2 - болты М8х35 шт./кг,
             3 - гайки M10 шт./кг,
             4 - шайбы M10 шт./кг,
@@ -76,7 +76,7 @@ def local_materials(length, width):
         Расчет от внутренних размеров чаши.
         На выходе массив данных result = [
             0 - бетон М350.,
-            buildozer.spec - арматура 8мм и 10мм.,
+            1 - арматура 8мм и 10мм.,
             2 - щебень для подсыпки фр.5-20,
             3 - песок для обратной засыпки,
             4 - блоки 400х200х200мм,
@@ -86,7 +86,7 @@ def local_materials(length, width):
     """
     p = 2 * length + 2 * width
     concrete = int(p*0.15*1.5+p*0.25*0.25+(length+0.8)*(width+0.8)*0.2 + 1)
-    if length >= 12:
+    if length >= 12 or width >= 10:
         steel8 = int(p*4*2 + 4 * (length + 1.5)*(width + 1.5) / 0.15)
     else:
         steel8 = int(p*4*2 + 2 * (length + 1.5)*(width + 1.5) / 0.15) 
@@ -101,9 +101,30 @@ def local_materials(length, width):
               block, plaster, putty, glue]
     return result
 
+def face_materials(length, width):
+    """ Функция расчитывает необходимые облицовочные материалы для
+        внутренней облицовки бассейна ПВХ лайнером и бортовым камнем.
+            Расчет от внутренних размеров чаши.
+            На выходе массив данных result = [
+                0 - лайнер ПВХ 1.5мм,
+                1 - угол с напылением ПВХ 50х30мм,
+                2 - жидкий ПВХ 1л,
+                3 - дюбель 6х60мм,
+                4 - бортовой камень 600х300х30мм,
+                5 - затирка 2кг,]
+        """
+    p = 2 * length + 2 * width
+    s = length * width
+    liner = int((p * 1.65 + s * 1.15) * 1.05)
+    corner = int(2 * p // 2)
+    liquid = int(liner // 50)
+    dowel = int(p * 10)
+    side_stone = int(p * 1.20 // 0.6)
+    grout = int(p // 8)
+    silicone = int(p // 10)
+    result = [liner, corner, liquid, dowel, side_stone, grout, silicone]
+    return result
+
 if __name__ == "__main__":
-    l = float(input("Введите длинну бассейна: "))
-    w = float(input("Введите ширину бассейна: "))
-    print(local_materials(l, w))
-    p = 2*(l+w)
-    formwork_materials_release(p)
+    # formwork_materials_release(p)
+    linerlen_release()
