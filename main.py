@@ -12,6 +12,7 @@ Created on Mon Feb 13 00:26:50 2023
 
 from workmod import *
 from kivy.app import App
+from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
 from kivy.graphics import Line, Color, Ellipse
@@ -25,6 +26,8 @@ Config.set('kivy', 'keyboard_mode', 'systemanddock')
 Window.size = (480, 950)
 Window.top = 50
 Window.left = 1000
+
+from kivymd.theming import ThemeManager
 
 class PainterWidget(Widget):
     def on_touch_down(self, touch):
@@ -72,8 +75,8 @@ class Container(ScreenManager):
         self.putty.text = str(M[7])+' меш.'
         self.glue.text = str(M[8])+' меш.'
     def calc_face_materials(self):
-        l = float(self.length3.text) if self.length2.text else 0
-        w = float(self.width3.text) if self.width2.text else 0
+        l = float(self.length3.text) if self.length3.text else 0
+        w = float(self.width3.text) if self.width3.text else 0
         M = face_materials(l, w)
         self.liner.text = str(M[0])+' кв.м.'
         self.corner.text = str(M[1])+' п.м.'
@@ -91,9 +94,10 @@ class Container(ScreenManager):
         self.lenroll.text = 'В этом рулоне ' + str(L) + ' п.м.'
 
     def start(self):
-        self.length1.text = self.width1.text =''
+        self.length1.text = self.width1.text = ''
         self.length2.text = self.width2.text = ''
         self.length3.text = self.width3.text = ''
+        self.diametr1.text = self.diametr.text = ''
         self.login.text = self.pwd.text = ''
         self.login.hint_text = 'логин'
         self.pwd.hint_text = 'пароль'
@@ -107,7 +111,7 @@ class Container(ScreenManager):
             pass
     def settings(self):
         self.current = 'settings'
-        self.transition.direction = 'right'
+        self.transition.direction = 'left'
     def menu(self):
         self.current = 'menu'
         self.transition.direction = 'right'
@@ -144,8 +148,18 @@ class Container(ScreenManager):
     def wsc(self):
         pass
 
-class PoolToolApp(App):
+class PoolToolApp(MDApp):
+    theme_cls = ThemeManager()
+    title = 'PoolTool - Проверка'
     def build(self):
+        paletts = ['Red', 'Pink', 'Purple', 'DeepPurple',
+                   'Indigo', 'Blue', 'LightBlue', 'Cyan',
+                   'Teal', 'Green', 'LightGreen', 'Lime',
+                   'Yellow', 'Amber', 'Orange', 'DeepOrange',
+                   'Brown', 'Gray', 'BlueGray']
+        self.theme_cls.primary_palette = "LightBlue"
+        self.theme_cls.primary_hue = "100"  # "500"
+        self.theme_cls.theme_style = 'Light'
         return Container()
 
 if __name__ == '__main__':
