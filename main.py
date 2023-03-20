@@ -22,12 +22,16 @@ from kivy.properties import ObjectProperty
 from kivy.config import Config
 Config.set('kivy', 'keyboard_mode', 'systemanddock')
 
-# Разрешение экрана телефона 1440х3200
-Window.size = (480, 950)
-Window.top = 50
-Window.left = 1000
+# Разрешение экрана телефона 1440х3200 или 720х1480
+#Window.size = (360, 700)
+#Window.top = 20
+#Window.left = 500
 
 from kivymd.theming import ThemeManager
+from kivymd.uix.label import MDLabel
+from kivymd.uix.textfield import MDTextField
+from kivymd.uix.button import MDRectangleFlatIconButton
+from kivymd.uix.button import MDRaisedButton
 
 class PainterWidget(Widget):
     def on_touch_down(self, touch):
@@ -110,14 +114,26 @@ class Container(ScreenManager):
         else:
             pass
     def settings(self):
+        if self.current != 'menu':
+            self.transition.direction = 'right'
+        else:
+            self.transition.direction = 'left'
         self.current = 'settings'
-        self.transition.direction = 'left'
     def menu(self):
         self.current = 'menu'
         self.transition.direction = 'right'
     def profile(self):
         self.current = 'profile'
         self.transition.direction = 'left'
+
+    def show_theme_picker(self):
+        #theme_dialog = MDColorPicker()
+        #theme_dialog.open()
+        pass
+    def theme(self):
+        self.current = 'theme'
+        self.transition.direction = 'left'
+        # self.show_theme_picker()
     def calcs(self):
         self.current = 'calcs'
         self.transition.direction = 'left'
@@ -149,8 +165,7 @@ class Container(ScreenManager):
         pass
 
 class PoolToolApp(MDApp):
-    theme_cls = ThemeManager()
-    title = 'PoolTool - Проверка'
+    title = 'PoolTool'
     def build(self):
         paletts = ['Red', 'Pink', 'Purple', 'DeepPurple',
                    'Indigo', 'Blue', 'LightBlue', 'Cyan',
@@ -158,7 +173,7 @@ class PoolToolApp(MDApp):
                    'Yellow', 'Amber', 'Orange', 'DeepOrange',
                    'Brown', 'Gray', 'BlueGray']
         self.theme_cls.primary_palette = "LightBlue"
-        self.theme_cls.primary_hue = "100"  # "500"
+        self.theme_cls.primary_hue = "700"  # "500"
         self.theme_cls.theme_style = 'Light'
         return Container()
 
